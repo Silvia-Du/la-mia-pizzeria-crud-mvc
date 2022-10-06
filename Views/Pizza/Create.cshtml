@@ -1,0 +1,42 @@
+﻿@{
+    @model Pizza;
+    Layout = "Guest/_Layout";
+}
+<div class="container bg-beige debug p-4">
+    <form asp-controller="Pizza" asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <strong>Nome pizza:</strong>
+            <input asp-for="Name" class="d-block w-100" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <strong>Descrizione:</strong>
+            <textarea class="form-control" asp-for="Description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <strong>Immagine:</strong>
+            <input asp-for="Image" class="d-block w-100" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <strong>Prezzo:</strong>
+            <input asp-for="Price" class="d-block w-100" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="text-end">
+            <input type="submit" class="btn btn-small  btn-secondary" value="Salva">
+        </div>
+    </form>
+</div>
+
+@*string name, string description, string image, float price*@
+
+
+

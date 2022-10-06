@@ -1,0 +1,51 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/*pizze*/
+.debug {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.pizza-container img {
+    width: 100%;
+    border-radius: 5px;
+}
+.numbers-box {
+    background-color: #EF8476;
+    display: inline-block;
+    border-radius: 5px;
+}
+.btn_show {
+    background-color: #FB8839;
+    color: white;
+    border: 0;
+    text-decoration: none;
+}
+.btn_show:hover {
+    background-color: white;
+    border: 2px solid #FB8839;
+    color: #FB8839;
+}
+.rounded-box{
+    border-radius: 5px;
+}
+.bg-beige {
+    background-color: #F5F5F5;
+}

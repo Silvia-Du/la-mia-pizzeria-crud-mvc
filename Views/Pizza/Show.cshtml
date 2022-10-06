@@ -1,0 +1,21 @@
+﻿@{
+
+    @model Pizza;
+    Layout = "Guest/_Layout";
+}
+    <div class="container debug px-3 py-4 bg-beige">
+        <div class="row">
+            <div class="col-6">
+                <img src="@Model.Image" class="mb-2 w-100 rounded-box"/>
+            </div>
+             <div class="col-6">
+                 <h2 class="mb-3">@Model.Name</h2>
+                 <p>@Model.Name</p>
+                 <p>@Model.Description</p>
+            </div>
+        </div> 
+    
+    </div>
+
+
+
