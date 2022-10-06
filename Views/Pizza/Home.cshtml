@@ -19,25 +19,32 @@
         {
            
             @foreach(Pizza pizza in Model){
-                <div class="col-12 col-md-6 col-lg-4 p-2 mb-3">
+                <div class="col-12 col-md-6 col-lg-4 p-2 mb-3 ">
 
-                    <div class="px-1 py-3 debug">
+                        <div class="px-1 py-3 debug pizza-card">
                         <h3>@pizza.Name</h3>
                         <img src="@pizza.Image" class="@pizza.Name mb-3"/>
                         <h6>Euro: @pizza.Price</h6>
                         <p>@pizza.Description</p>
-                        <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Show", "Pizza", new{Id = pizza.Id})">View more</a>
-                        <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = pizza.Id})">Modifica</a>  
+                        <div>
+                            <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Show", "Pizza", new{Id = pizza.Id})">View more</a>
+                            <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = pizza.Id})">Modifica</a>
+                            <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                                <input type="submit" class="btn btn_show rounded-pill" value="Elimina">
+                            </form>
+                        </div>
+
 
                     </div> 
                 </div> 
 
              }
+           
         }
         @*se non ci sono risultati*@
         else
         {
-
             <div class="pt-3">
                 <h3>Non ci sono risultati</h3>
             </div>

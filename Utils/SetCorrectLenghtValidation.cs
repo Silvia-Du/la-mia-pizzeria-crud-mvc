@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace la_mia_pizzeria_static.Models
+namespace la_mia_pizzeria_crude_mvc.Utils
 {
-    public class SetCorrectLenghtValidation :ValidationAttribute
+    public class SetCorrectLenghtValidation : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {

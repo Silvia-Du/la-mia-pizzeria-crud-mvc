@@ -7,11 +7,6 @@ namespace la_mia_pizzeria_crude_mvc.Models
     {
         public DbSet<Pizza>? Pizzas { get; set; }
 
-
-        public PizzeriaContext() : base()
-        {
-        }
-
         protected override void OnConfiguring(
         DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,6 +15,7 @@ namespace la_mia_pizzeria_crude_mvc.Models
                 "Integrated Security=True";
             optionsBuilder.UseSqlServer(connection);
         }
-      
+
+
     }
 }

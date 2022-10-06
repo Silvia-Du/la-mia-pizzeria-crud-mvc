@@ -1,4 +1,5 @@
-﻿using la_mia_pizzeria_static.Models;
+﻿using la_mia_pizzeria_crude_mvc.Models;
+using la_mia_pizzeria_crude_mvc.Utils;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,17 +22,10 @@ namespace la_mia_pizzeria_crude_mvc.Models
         [Required(ErrorMessage = "L'immagine è obbligatoria")]
         public string? Image { get; set; }
         [Column("price")]
+        [SetCorrectTypePrice]
         [Required(ErrorMessage = "Il prezzo è un campo obbligatorio")]
         [Range(1, 100, ErrorMessage = "Il prezzo deve essere compreso tra 1 e 100")]
-        public float Price { get; set; }
-
-        //public Pizza(string name, string description, string image, float price)
-        //{
-        //    this.Name = name;
-        //    this.Description = description;
-        //    this.Image = image;
-        //    this.Price = price;
-        //}
+        public decimal Price { get; set; }
 
     }
 }

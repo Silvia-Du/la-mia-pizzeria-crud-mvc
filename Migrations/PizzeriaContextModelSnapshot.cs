@@ -7,7 +7,7 @@ using la_mia_pizzeria_crude_mvc.Models;
 
 #nullable disable
 
-namespace la_mia_pizzeria_static.Migrations
+namespace la_mia_pizzeria_crude_mvc.Migrations
 {
     [DbContext(typeof(PizzeriaContext))]
     partial class PizzeriaContextModelSnapshot : ModelSnapshot
@@ -45,8 +45,8 @@ namespace la_mia_pizzeria_static.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("name");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real")
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("price");
 
                     b.HasKey("Id");

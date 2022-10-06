@@ -26,7 +26,7 @@
 
         <div class="mb-3">
             <strong>Prezzo:</strong>
-            <input asp-for="Price" class="d-block w-100" />
+            <input asp-for="Price" class="d-block w-100" step=".01" value="0" min="0" max="100"/>
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
