@@ -7,25 +7,21 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
 {
     public class PizzaController : Controller
     {
+
+        readonly PizzeriaContext _ctx = new();
        
         public IActionResult Index()
-        {
-            using (PizzeriaContext db = new())
-            {
-                List<Pizza> pizzas = db.Pizzas.OrderBy(pizza => pizza.Id).ToList();
-                return View("Home", pizzas);
-            }
+        {           
+            List<Pizza> pizzas = _ctx.Pizzas.OrderBy(pizza => pizza.Id).ToList();
+            return View("Home", pizzas);
         }
 
 
         public IActionResult Show(int id)
         {
-            using (PizzeriaContext db = new())
-            {
-                Pizza? pizza = db.Pizzas.FirstOrDefault(x => x.Id == id);
-
-                return pizza is null ? NotFound("Non è stata trovata nessuna corrispondenza") : View(pizza);
-            }
+            
+            Pizza? pizza = _ctx.Pizzas.FirstOrDefault(x => x.Id == id);
+            return pizza is null ? NotFound("Non è stata trovata nessuna corrispondenza") : View(pizza);
 
         }
 
@@ -44,23 +40,18 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
                 //uguale a dire return View("Create", pizza)
                 return View(pizza);
             }
-            using (PizzeriaContext db = new())
-            {
-                db.Pizzas.Add(pizza);
-                db.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
+            
+            _ctx.Pizzas.Add(pizza);
+            _ctx.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Update(int id)
         {
             
-            using (PizzeriaContext db = new())
-            {
-                Pizza? pizza = db.Pizzas.FirstOrDefault(x => x.Id == id);
+            Pizza? pizza = _ctx.Pizzas.FirstOrDefault(x => x.Id == id);
                 
-                return pizza is null? NotFound("Non è stata trovata nessuna corrispondenza"): View(pizza);
-            }
+            return pizza is null? NotFound("Non è stata trovata nessuna corrispondenza"): View(pizza);
         }
 
         [HttpPost]
@@ -68,21 +59,36 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
         public IActionResult Update(int id, Pizza pizza)
         {
 
-            using (PizzeriaContext db = new())
+            if(pizza is null)
             {
-                if(pizza is null)
-                {
-                    return NotFound("Non è stata trovata nessuna corrispondenza");
-                }
-                else
-                {
-                    
-                    db.Pizzas.Update(pizza);
-                    db.SaveChanges();
-                    return View("Show", pizza);
-                }
-
+                return NotFound("Non è stata trovata nessuna corrispondenza");
             }
+            else
+            {                   
+                _ctx.Pizzas.Update(pizza);
+                _ctx.SaveChanges();
+                return View("Show", pizza);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+
+            Pizza? pizza = _ctx.Pizzas.FirstOrDefault(x => x.Id == id);
+
+            if (pizza is null)
+            {
+                return NotFound("Non è stata trovata nessuna corrispondenza");
+            }
+            else
+            {
+                _ctx.Pizzas.Remove(pizza);
+                _ctx.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+
         }
 
 
