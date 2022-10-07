@@ -24,7 +24,8 @@
                         <div class="px-1 py-3 debug pizza-card">
                         <h3>@pizza.Name</h3>
                         <img src="@pizza.Image" class="@pizza.Name mb-3"/>
-                        <h6>Euro: @pizza.Price</h6>
+                        <h6 class="mb-0">Categoria: Pizze @pizza.Category.Name</h6>
+                        <h6 class="mb-0">Euro: @pizza.Price</h6>
                         <p>@pizza.Description</p>
                         <div>
                             <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Show", "Pizza", new{Id = pizza.Id})">View more</a>

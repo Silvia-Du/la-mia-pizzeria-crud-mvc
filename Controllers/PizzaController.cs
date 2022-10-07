@@ -1,6 +1,7 @@
 ﻿using la_mia_pizzeria_crude_mvc.Models;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
@@ -13,7 +14,7 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
        
         public IActionResult Index()
         {           
-            List<Pizza> pizzas = _ctx.Pizzas.OrderBy(pizza => pizza.Id).ToList();
+            List<Pizza> pizzas = _ctx.Pizzas.Include("Category").OrderBy(pizza => pizza.Id).ToList();
             return View("Home", pizzas);
         }
 
@@ -21,7 +22,7 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
         public IActionResult Show(int id)
         {
             
-            Pizza? pizza = _ctx.Pizzas.FirstOrDefault(x => x.Id == id);
+            Pizza? pizza = _ctx.Pizzas.Include("Category").FirstOrDefault(x => x.Id == id);
             return pizza is null ? NotFound("Non è stata trovata nessuna corrispondenza") : View(pizza);
 
         }
@@ -41,7 +42,6 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
             if (!ModelState.IsValid)
             {
                 utilityClass.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
-                //uguale a dire return View("Create", pizza)
                 return View(utilityClass);
             }
             
@@ -50,29 +50,41 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+
         public IActionResult Update(int id)
         {
             
             Pizza? pizza = _ctx.Pizzas.FirstOrDefault(x => x.Id == id);
-                
-            return pizza is null? NotFound("Non è stata trovata nessuna corrispondenza"): View(pizza);
+
+            if (pizza == null)
+            {
+                return NotFound();
+            }
+
+            CategoriesPizzas utilityClass = new();
+            utilityClass.Pizza = pizza;
+            utilityClass.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
+
+            return pizza is null? NotFound("Non è stata trovata nessuna corrispondenza"): View(utilityClass);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id, Pizza pizza)
+        public IActionResult Update(int id, CategoriesPizzas request)
         {
 
-            if(pizza is null)
+            if(!ModelState.IsValid)
             {
-                return NotFound("Non è stata trovata nessuna corrispondenza");
+                request.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
+                return View(request);
             }
-            else
-            {                   
-                _ctx.Pizzas.Update(pizza);
-                _ctx.SaveChanges();
-                return View("Show", pizza);
-            }
+                   
+            _ctx.Pizzas.Update(request.Pizza);
+            _ctx.SaveChanges();
+            return View("Show", request.Pizza);
         }
 
         [HttpPost]
