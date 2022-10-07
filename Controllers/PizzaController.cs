@@ -27,6 +27,7 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
 
         public IActionResult Create()
         {
+
             return View();
         }
        
