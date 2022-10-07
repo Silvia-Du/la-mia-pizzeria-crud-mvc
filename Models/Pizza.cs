@@ -19,7 +19,7 @@ namespace la_mia_pizzeria_crude_mvc.Models
 
         [Column("description")]
         [Required(ErrorMessage = "La descrizione è obbligatoria")]
-        [SetCorrectLenghtValidation]
+        //[SetCorrectLenghtValidation]
         public string? Description { get; set; }
 
         [Column("Image")]
@@ -33,6 +33,7 @@ namespace la_mia_pizzeria_crude_mvc.Models
         public decimal Price { get; set; }
 
         //relations
+        //personalizzare errore stringa vuota
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
 

@@ -12,7 +12,7 @@ namespace la_mia_pizzeria_static.Models
 
         public CategoriesPizzas()
         {
-            Pizza = new ();
+            Pizza = new();
             Categories = new();
         }
     }

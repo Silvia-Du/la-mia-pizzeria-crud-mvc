@@ -1,4 +1,5 @@
 ﻿using la_mia_pizzeria_crude_mvc.Models;
+using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
@@ -27,22 +28,24 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
 
         public IActionResult Create()
         {
-
-            return View();
+            CategoriesPizzas utilityClass = new();
+            utilityClass.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
+            return View(utilityClass);
         }
        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Pizza pizza)
+        public IActionResult Create(CategoriesPizzas utilityClass)
         {
             if (!ModelState.IsValid)
             {
+                utilityClass.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
                 //uguale a dire return View("Create", pizza)
-                return View(pizza);
+                return View(utilityClass);
             }
             
-            _ctx.Pizzas.Add(pizza);
+            _ctx.Pizzas.Add(utilityClass.Pizza);
             _ctx.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
