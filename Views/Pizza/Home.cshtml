@@ -5,55 +5,63 @@
 @model List<Pizza>;
 
 
+<div class="container list-container pizza-container">
 
-<div class="pizza-container container">
-
-    <div class="d-flex justify-content-between align-items-center px-5">
+      <div class="d-flex justify-content-between align-items-center px-5">
         <h2 class="mb-3">Menu pizze</h2>
         <a href="@Url.Action("Create", "Pizza")" class="btn btn-secondary">Nuova pizza</a>
-    </div>
+      </div>
 
-    <div class="row">
+      <div class="row py-3">
+
         @*se ci sono risultati*@
         @if (@Model.Count() != 0)
         {
-           
-            @foreach(Pizza pizza in Model){
-                <div class="col-12 col-md-6 col-lg-4 p-2 mb-3 ">
 
-                        <div class="px-1 py-3 debug pizza-card">
-                        <h3>@pizza.Name</h3>
-                        <img src="@pizza.Image" class="@pizza.Name mb-3"/>
-                        <h6 class="mb-0">Categoria: Pizze @pizza.Category.Name</h6>
-                        <h6 class="mb-0">Euro: @pizza.Price</h6>
-                        <p>@pizza.Description</p>
-                        <div>
-                            <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Show", "Pizza", new{Id = pizza.Id})">View more</a>
-                            <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = pizza.Id})">Modifica</a>
-                            <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post" class="d-inline">
-                            @Html.AntiForgeryToken()
-                                <input type="submit" class="btn btn_show rounded-pill" value="Elimina">
-                            </form>
+            @foreach (Pizza pizza in Model)
+            {
+                <div class="col-12 col-lg-6 debug border-r py-3 mb-3 bg-card">
+
+                  <div class="container-fluid px-0">
+                    <div class="row">
+
+                      <div class="col-6">
+                                <img class="border-r w-100" src="@pizza.Image" alt="@pizza.Name">
+                      </div>
+                      <div class="col-6 d-flex flex-column justify-content-center">
+
+                        <div class="text">
+                          <h3>@pizza.Name</h3>
+                          <h6 class="mb-0">Categoria: Pizze @pizza.Category.Name</h6>
+                          <h6 class="mb-0">Euro: @pizza.Price</h6>
+                          <p>@pizza.Description</p>
                         </div>
 
+                        <div class="btn-box d-flex justify-content-around">
+                          <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Show", "Pizza", new{Id = pizza.Id})">View more</a>
+                          <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = pizza.Id})">Modifica</a>
+                          <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                              <input type="submit" class="btn btn_show rounded-pill" value="Elimina">
+                          </form>
+                        </div>
 
-                    </div> 
-                </div> 
+                      </div>
+                    </div>
+                  </div>
 
-             }
-           
+                </div>
+            }
+
         }
         @*se non ci sono risultati*@
         else
         {
             <div class="pt-3">
-                <h3>Non ci sono risultati</h3>
+              <h3>Non ci sono risultati</h3>
             </div>
         }
-
-
+        </div>
     </div>
-</div>
-
 
 
