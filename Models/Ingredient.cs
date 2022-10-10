@@ -1,11 +1,10 @@
-﻿using la_mia_pizzeria_crude_mvc.Utils;
+﻿using la_mia_pizzeria_crude_mvc.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using la_mia_pizzeria_crude_mvc.Models;
 
 namespace la_mia_pizzeria_static.Models
 {
-    public class Category
+    public class Ingredient
     {
         [Key]
         public int Id { get; set; }

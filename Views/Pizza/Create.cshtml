@@ -1,5 +1,5 @@
 ﻿@using la_mia_pizzeria_static.Models;
-@model CategoriesPizzas;
+@model RelationsPizzas;
 @{
     Layout = "Guest/_Layout";     
 }
@@ -43,6 +43,19 @@
                 }
             </select>
             <span asp-validation-for="Pizza.CategoryId" class="text-danger"></span>
+        </div>
+
+         <div class="mb-3">
+            <strong>Tag:</strong>
+            <select multiple="multiple"
+                asp-for="SelectedIngredients"
+                size="10"
+                class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
+            @foreach (Ingredient tag in Model.Ingredients)
+            {
+                <option value="@tag.Id">@tag.Name</option>
+            }
+            </select>
         </div>
 
         <div class="mb-3">

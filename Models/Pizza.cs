@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace la_mia_pizzeria_crude_mvc.Models
 {
-    [Table("pizza")]
     public class Pizza
     {
         [Key]
@@ -26,8 +25,8 @@ namespace la_mia_pizzeria_crude_mvc.Models
         [Required(ErrorMessage = "L'immagine è obbligatoria")]
         public string? Image { get; set; }
 
-        [Column("price")]
         [SetCorrectTypePrice]
+        [Column(TypeName = "money")]
         [Required(ErrorMessage = "Il prezzo è un campo obbligatorio")]
         [Range(1, 100, ErrorMessage = "Il prezzo deve essere compreso tra 1 e 100")]
         public decimal Price { get; set; }
@@ -36,6 +35,7 @@ namespace la_mia_pizzeria_crude_mvc.Models
         //personalizzare errore stringa vuota
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
+        public List<Ingredient>? Ingredients { get; set; }
 
     }
 }

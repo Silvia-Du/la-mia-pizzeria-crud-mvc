@@ -1,4 +1,5 @@
-﻿
+﻿@using la_mia_pizzeria_static.Models
+
 @{
     Layout = "Guest/_Layout";
 }
@@ -34,10 +35,14 @@
                           <h3>@pizza.Name</h3>
                           <h6 class="mb-0">Categoria: Pizze @pizza.Category.Name</h6>
                           <h6 class="mb-0">Euro: @pizza.Price</h6>
-                          <p>@pizza.Description</p>
+                          <h6>Ingredienti: </h6>
+                          @foreach (Ingredient ing in pizza.Ingredients){
+                             <p class="d-inline">@ing.Name </p>
+                          }
+                          ;
                         </div>
 
-                        <div class="btn-box d-flex justify-content-around">
+                        <div class="btn-box d-flex justify-content-around mt-2">
                           <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Show", "Pizza", new{Id = pizza.Id})">View more</a>
                           <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = pizza.Id})">Modifica</a>
                           <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post" class="d-inline">
