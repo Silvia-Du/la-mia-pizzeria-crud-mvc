@@ -1,6 +1,9 @@
 ﻿@using la_mia_pizzeria_static.Models;
+
+@{
+    Layout = "Guest/_Layout";
+}
 @model CategoriesPizzas;
-@Layout = "Guest/_Layout";
 
 <div class="container bg-beige debug p-4">
     <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Pizza.Id" method="post">

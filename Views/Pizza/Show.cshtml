@@ -1,8 +1,10 @@
-﻿@{
-
+﻿
     @model Pizza;
+
+@{
     Layout = "Guest/_Layout";
 }
+
     <div class="container debug px-3 py-4 bg-beige">
         <div class="row">
             <div class="col-6">
@@ -11,8 +13,9 @@
              <div class="col-6">
                  <h2 class="mb-3">@Model.Name</h2>
                  <p>@Model.Name</p>
-                 <p>@Model.Category.Name</p>
+                 <p>@Model.Category?.Name</p>
                  <p>@Model.Description</p>
+                 <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = Model.Id})">Modifica</a>
             </div>
         </div> 
     

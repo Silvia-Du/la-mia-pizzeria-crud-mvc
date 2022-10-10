@@ -1,6 +1,7 @@
 ﻿using la_mia_pizzeria_crude_mvc.Models;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
@@ -57,16 +58,16 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
             
             Pizza? pizza = _ctx.Pizzas.FirstOrDefault(x => x.Id == id);
 
-            if (pizza == null)
+            if (pizza is null)
             {
-                return NotFound();
+                return NotFound("Non è stata trovata nessuna corrispondenza");
             }
 
             CategoriesPizzas utilityClass = new();
             utilityClass.Pizza = pizza;
             utilityClass.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
 
-            return pizza is null? NotFound("Non è stata trovata nessuna corrispondenza"): View(utilityClass);
+            return View(utilityClass);
         }
 
 
@@ -81,11 +82,15 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
                 request.Categories = _ctx.Categories.OrderBy(x => x.Id).ToList();
                 return View(request);
             }
-                   
+
+            request.Pizza.Id = id;
             _ctx.Pizzas.Update(request.Pizza);
             _ctx.SaveChanges();
+            request.Pizza.Category = _ctx.Categories.FirstOrDefault(x => x.Id == request.Pizza.CategoryId);
             return View("Show", request.Pizza);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
