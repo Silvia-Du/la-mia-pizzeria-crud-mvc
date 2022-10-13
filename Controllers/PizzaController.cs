@@ -18,7 +18,7 @@ namespace la_mia_pizzeria_crude_mvc.Controllers
         public IActionResult Index()
         {           
             List<Pizza> pizzas = _ctx.Pizzas?.Include("Category").Include("Ingredients").OrderBy(pizza => pizza.Id).ToList()!;
-            return View("Home", pizzas);
+            return View(pizzas);
         }
 
 
