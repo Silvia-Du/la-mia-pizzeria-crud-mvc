@@ -1,8 +1,8 @@
 ﻿@using la_mia_pizzeria_static.Models;
 @model RelationsPizzas;
-@{
+@*@{
     Layout = "Guest/_Layout";     
-}
+}*@
 
 <div class="container bg-beige debug p-4">
     <form asp-controller="Pizza" asp-action="Create" method="post">
@@ -48,7 +48,7 @@
          <div class="mb-3">
             <strong>Tag:</strong>
             <select multiple="multiple"
-                asp-for="SelectedIngredients"
+                asp-for="IngredientIds"
                 size="10"
                 class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
             @foreach (Ingredient tag in Model.Ingredients)

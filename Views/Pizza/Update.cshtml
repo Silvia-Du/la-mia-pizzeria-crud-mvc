@@ -51,7 +51,7 @@
 
         <div class="mb-3">
             <strong>Tag:</strong>
-            <select asp-for="SelectedIngredients" multiple="multiple"
+            <select asp-for="IngredientIds" multiple="multiple"
             size="10" class="form-control mb-2 mr-sm-2 ml-sm-3 leftList" >
             
             @foreach (Ingredient ing in Model.Ingredients)
@@ -70,9 +70,16 @@
             </select>
         </div>
 
+        @*  <select asp-for="SelectedTags"
+                    multiple="multiple"
+                    size="10"
+                    class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                    asp-items="@Model.Tags">
+                </select>*@
+
         <div class="mb-3">
             <strong>Prezzo:</strong>
-            <input asp-for="Pizza.Price" class="d-block w-100" step=".01" value="0" min="0" max="100"/>
+            <input asp-for="Pizza.Price" class="d-block w-100" step=".50" value="@Model.Pizza.Price.ToString("###.##")" min="0" max="100"/>
             <span asp-validation-for="Pizza.Price" class="text-danger"></span>
         </div>
 

@@ -18,6 +18,7 @@
                  <p>Euro: @Model.Price; </p>
 
                  <a class="btn_show px-3 py-2 rounded-pill" href="@Url.Action("Update", "Pizza", new{Id = Model.Id})">Modifica</a>
+                 <a class="btn_show px-3 py-2 rounded-pill" asp-area="" asp-controller="Pizza" asp-action="Index">Lista Pizze</a>
             </div>
         </div> 
     

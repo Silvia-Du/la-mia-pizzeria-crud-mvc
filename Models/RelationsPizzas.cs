@@ -8,14 +8,14 @@ namespace la_mia_pizzeria_static.Models
         public Pizza Pizza { get; set; }
         public List<Category> Categories { get; set; }
         public List<Ingredient> Ingredients { get; set; }
-        public List<int> SelectedIngredients { get; set; }   
+        public List<int> IngredientIds { get; set; }   
 
         public RelationsPizzas()
         {
             Pizza = new();
             Categories = new();
             Ingredients = new();
-            SelectedIngredients = new();
+            IngredientIds = new();
         }
     }
 }
